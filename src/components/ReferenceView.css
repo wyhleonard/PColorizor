@@ -15,7 +15,9 @@
 
 .Reference-canvas{
     width: 100%;
-    height: 50%;
+    /* todo */
+    /* height:50%; */
+    height: 63%;
 }
 
 .Reference-title{
@@ -34,10 +36,6 @@
 .Reference-canvas-container {
     width: 100%;
     height: calc(100% - 28px);
-    border: 3px solid #5a4e3b;
-    border-radius: 0px 0px 4px 4px;
-    border-top-width: 0px;
-    box-sizing: border-box;
     background-color: #fff6dc;
     overflow: hidden;
 }
@@ -180,6 +178,16 @@
     color: #594d3a;
     font-size: 16px;
     font-weight: 600;
+}
+
+.Reference-canvas-main {
+    margin: 8px;
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    overflow: hidden;
+    position: relative;
+    border: 3px solid #5a4e3b;
+    box-sizing: border-box;
 }
 
 .Reference-index-div {

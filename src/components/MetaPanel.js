@@ -4,8 +4,6 @@ import OpenCloseSVG from "../icons/open_close.svg";
 import FilterTextSVG from "../icons/text.svg";
 import SearchSVG from "../icons/search.svg";
 import AddQuerySVG from "../icons/add.svg";
-import case2Imagery1 from "../images/case2/imagery1.jpg";
-import case2Imagery2 from "../images/case2/imagery2.jpg";
 
 // "山势舒坦静若盼，矾头云卷烟霞间。树木葱茏争荫浓，江畔风吹枝叶飘。灯笼树梢点缀处，彩旗飘扬两舟前。欢笑数十人岸边，歌舞共和祥气鲜。路旁行人观美景，画中奇景在眼前。春雨沐草滋今生，盼龙喜兆降瑞年。"
 const poem = [
@@ -21,6 +19,13 @@ const poem = [
 
 export const MetaPanel = ({
     iconSize,
+    queryList,
+    setQueryList,
+    visibility,
+    setVisibility,
+    index,
+    setIndex,
+    canvasTop
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isSelectText, setIsSelectText] = useState(false);
@@ -39,8 +44,8 @@ export const MetaPanel = ({
                         key={`character-${idx}-${i}`}
                         style={{
                             marginLeft: `${i !== 0 ? 4 : 0}px`,
-                            backgroundColor: index === -1 ? "#fff6dc" : "#5a4e3b",
-                            color: index === -1 ? "#5a4e3b" : "#fff6dc"
+                            backgroundColor: (index === -1) ? "#fff6dc" : "#5a4e3b",
+                            color: (index === -1) ? "#5a4e3b" : "#fff6dc"
                         }}
                         onClick={() => {
                             if(isSelectText) {
@@ -66,20 +71,13 @@ export const MetaPanel = ({
         return textDivs
     }, [isSelectText, selectedText])
 
-    const [queryList, setQueryList] = useState([
-        {
-            image: case2Imagery1,
-            text: ["山势舒坦静若盼，", "矾头云卷烟霞间。"],
-        },
-        {
-            image: case2Imagery2,
-            text: ["树木葱茏争荫浓，",  "江畔风吹枝叶飘。"],
-        }
-    ])
+    
 
     const queryItems = useMemo(() => {
         return queryList.map((item, idx) => {
             const textContent = item.text;
+            const backgroundColor = index === idx ? "#594d3a" : "#fff6dc";
+            const fontColor = index === idx ? "#fff6dc" : "#594d3a";
             const textSpans = textContent.map((t, idx) =>
                 <div key={`query-span-${idx}`} className="Query-text">
                     <div>{t}</div>
@@ -89,10 +87,27 @@ export const MetaPanel = ({
             return <div key={`query-item-${idx}`}
                 className="Query-list-content"
             >
-                <div className="Query-index-content">
-                    <span>{`[${idx}]`}</span>
+                <div className="Query-index-content"
+                    style={{
+                        backgroundColor: backgroundColor,
+                        color: fontColor
+                    }}
+                    onClick={() => {
+                        setIndex(idx);
+                    }}
+                    >
+                    <span
+                    style={{
+                        fontColor: "#594d3a",
+                        fontWeight: 'bold',
+                        position: 'absolute'
+                    }}
+                    >{`[${idx}]`}</span>
                 </div>
-                <div className="Query-image-content">
+                <div className="Query-image-content"
+                    style={{
+                        backgroundColor: backgroundColor,
+                    }}>
                     {
                         item.image !== "" && 
                         <img className="Query-image"
@@ -101,14 +116,19 @@ export const MetaPanel = ({
                         />
                     }
                 </div>
-                <div className="Query-text-content">
+                <div className="Query-text-content"
+                style={{
+                    backgroundColor: backgroundColor,
+                    color: fontColor,
+                }}
+                >
                     <div className="Query-text-content-container">
                         {textSpans}
                     </div>
                 </div>
             </div>
         })
-    }, [queryList])
+    }, [queryList, index])
 
     return <div className="MetaPanel-container">
         <div className={isOpen ? "Incident-vertical" : "Incident-vertical-hidden"} onClick={() => setIsOpen(!isOpen)}>
@@ -143,7 +163,27 @@ export const MetaPanel = ({
                                 boxSizing: "border-box",
                                 cursor: "pointer"
                             }}
-                            onClick={() => setIsSelectText(!isSelectText)}
+                            onClick={() => {
+                                setIsSelectText(!isSelectText);
+                                if(isSelectText) {
+                                    //将对应的诗句存起来。
+                                    let poemString = '';
+                                    for (let index = 0; index < selectedText.length; index++) {
+                                        // eslint-disable-next-line no-loop-func
+                                        selectedText[index].forEach(element => {
+                                            poemString += poem[index][element];
+                                            if(poem[index][element] === '，') {
+                                                poemString += ' ';
+                                            }
+                                        });
+                                        selectedText[index] = [];
+                                    }
+                                    queryList[queryList.length-1].text = poemString.split(' ');
+                                    setQueryList(JSON.parse(JSON.stringify(queryList)));
+                                    const ctx = canvasTop.current?.getContext('2d');
+                                    ctx.clearRect(0, 0, canvasTop.current?.width, canvasTop.current?.height);
+                                }
+                            }}
                         />
                     }
                 </div>
@@ -169,6 +209,11 @@ export const MetaPanel = ({
                                 borderRadius: "4px",
                                 boxSizing: "border-box",
                                 cursor: "pointer"
+                            }}
+
+                            onClick={() => {
+                                setVisibility('visible')
+                                
                             }}
                         />
                     }
