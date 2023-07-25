@@ -4,15 +4,24 @@ import RecallUnactiveSVG from "../icons/recall_unactive.svg";
 import BrushSVG from "../icons/brush.svg";
 import ColorPickerSVG from "../icons/color_picker.svg";
 import SelectSVG from "../icons/select.svg";
-import { useCallback, useMemo, useState } from "react";
+import DoubleSelectSVG from "../icons/doubleSelect.svg";
+import { useCallback, useMemo, useState, useRef } from "react";
 import { IndentPanel } from "./IndentPanel";
 import case2Query from "../images/case2/query.jpg";
 import case2Restored1 from "../images/case2/restored1.jpg";
 import { CanvasPainter } from "./CanvasPainter";
 import { MetaPanel } from "./MetaPanel";
+import case2Imagery1 from "../images/case2/imagery1.jpg";
+import case2Imagery2 from "../images/case2/imagery2.jpg";
 
 export const PaintBoard = ({
-
+    currentColor,
+    visibility,
+    setVisibility,
+    mode,
+    setMode,
+    penData,
+    setPenData
 }) => {
     const iconSizeLevel1 = 24;
     const iconSizeLevel2 = 36;
@@ -21,37 +30,32 @@ export const PaintBoard = ({
 
     // console.log("print-test-case2Query", case2Query) // 静态地址
 
-    const [selectedTool, setSelectedTool] = useState(-1);
     const handleToolChange = useCallback((newTool) => {
-        if(selectedTool === -1) {
-            setSelectedTool(newTool);
+        if(newTool === mode) {
+            setMode(-1);
         } else {
-            if(newTool === selectedTool) {
-                setSelectedTool(-1);
-            } else {
-                setSelectedTool(newTool);
-            }
+            setMode(newTool);
         }
-    }, [selectedTool])
+    }, [mode])
+
+    useMemo(() => {
+        if(mode !== 2) {
+            currentColor = "#1a7f7f";
+        }
+    }, [currentColor]);
 
     const [currentDisplayOne, setCurrentDisplayOne] = useState(0);
     const [currentDisplayTwo, setCurrentDisplayTwo] = useState(-1);
     const [restoredImages, setRestoredImages] = useState([case2Query, case2Restored1]);
 
+    const canvasTop = useRef(null);
+
     // onTouch没法区分左右键的点击 => 先绕一点吧 => 取消再点击
     const handleImageClick = useCallback((newIndex) => {
-        if(newIndex === currentDisplayOne) {
-            setCurrentDisplayOne(-1);
-        } else {
-            if(newIndex === currentDisplayTwo) {
-                setCurrentDisplayTwo(-1);
-            } else {
-                if(currentDisplayOne === -1) {
-                    setCurrentDisplayOne(newIndex);
-                } else {
-                    setCurrentDisplayTwo(newIndex);
-                }
-            }
+        if(newIndex === 0) {    //1st window
+            setCurrentDisplayOne(newIndex === currentDisplayOne ? -1 : newIndex);
+        } else {                //2nd window
+            setCurrentDisplayTwo(newIndex === currentDisplayTwo ? -1 : newIndex);
         }
     }, [currentDisplayOne, currentDisplayTwo])
 
@@ -60,6 +64,21 @@ export const PaintBoard = ({
     // 缩放 - 两个canvas共享
     const [currentScale, setCurrentScale] = useState(1);
     const maxScale = 10;
+
+    const [index, setIndex] = useState(-1);         //query处对应高亮的index
+
+    const [queryList, setQueryList] = useState([
+        // {
+        //     image: case2Imagery1,
+        //     text: ["山势舒坦静若盼，", "矾头云卷烟霞间。"],
+        //     location: [135, 62, 100, 30]    //x, y, w, h
+        // },
+        // {
+        //     image: case2Imagery2,
+        //     text: ["树木葱茏争荫浓，",  "江畔风吹枝叶飘。"],
+        //     location: [135, 100, 120, 40]
+        // }
+    ])
 
     const {imageTitles, imagePainters}= useMemo(() => {
         const imageTitles = [];
@@ -79,6 +98,7 @@ export const PaintBoard = ({
                         <div className="Tixing-div"/>
                         <div className="Image-title-text">
                             <span>{`${name} Window`}</span>
+                            {/* <span>AI修复</span> */}
                         </div>
                     </div>
                 </div>
@@ -97,14 +117,25 @@ export const PaintBoard = ({
                         }}
                         sharedScale={currentScale}
                         changeSharedScale={(v => {
-                            if(v === 150) {
+                            if(v < 0) {
                                 const newScale = Math.min(maxScale, currentScale * 1.25);
                                 setCurrentScale(newScale);
-                            } else if (v === -150) {
-                                const newScale = Math.max(1, currentScale / 1.25);
+                            } else if (v > 0) {
+                                const newScale = Math.max(0.25, currentScale / 1.25);
                                 setCurrentScale(newScale);
                             }
                         })}
+                        penColor={currentColor}
+                        mode={mode}
+                        setMode={setMode}
+                        queryList={queryList}
+                        changeList={setQueryList}
+                        queryIndex={index}
+                        setQueryIndex={setIndex}
+                        penData={penData}
+                        setPenData={setPenData}
+                        visibility={visibility}
+                        canvasTop={canvasTop}
                     />
                 </div>
             )
@@ -114,7 +145,11 @@ export const PaintBoard = ({
             imageTitles: imageTitles,
             imagePainters: imagePainters
         }
-    }, [currentDisplayOne, currentDisplayTwo, restoredImages, currentLT, currentScale]) 
+    }, [currentDisplayOne, currentDisplayTwo, restoredImages, currentLT, currentScale, currentColor, mode]) 
+
+    const restoreCanvas = () => {
+        // restore[0]++;
+    };
 
     return <div className="PaintBoard-container">
         <div className="Board-navigator">
@@ -126,6 +161,7 @@ export const PaintBoard = ({
                             width: `${iconSizeLevel1}px`,
                             height: `${iconSizeLevel1}px`,
                         }}
+                        onClick={restoreCanvas}
                     />
                     <div className="Board-tool-icon"
                         style={{
@@ -145,9 +181,26 @@ export const PaintBoard = ({
                                 <div className="Board-tool-icon"
                                     style={{
                                         marginLeft: "-4px",
+                                        marginTop: "-30px",
+                                        background: `url(${DoubleSelectSVG}) no-repeat`,
+                                        backgroundSize: '28px 28px',
+                                        backgroundPosition: '4px 4px',
+                                        backgroundColor: `${mode === 3 ? activeColor : unactiveColor}`,
+                                        width: `${iconSizeLevel2}px`,
+                                        height: `${iconSizeLevel2}px`,
+                                        justifyContent: 'center'
+                                    }}
+                                    onClick={() => handleToolChange(3)}
+                                />
+                            </div>
+
+                            <div className="Board-tool-container">
+                                <div className="Board-tool-icon"
+                                    style={{
+                                        marginLeft: "-4px",
                                         background: `url(${BrushSVG}) no-repeat`,
                                         backgroundSize: 'contain',
-                                        backgroundColor: `${selectedTool === 0 ? activeColor : unactiveColor}`,
+                                        backgroundColor: `${mode === 0 ? activeColor : unactiveColor}`,
                                         width: `${iconSizeLevel2}px`,
                                         height: `${iconSizeLevel2}px`,
                                     }}
@@ -161,7 +214,7 @@ export const PaintBoard = ({
                                         marginTop: "36px",
                                         background: `url(${SelectSVG}) no-repeat`,
                                         backgroundSize: 'contain',
-                                        backgroundColor: `${selectedTool === 1 ? activeColor : unactiveColor}`,
+                                        backgroundColor: `${mode === 1 ? activeColor : unactiveColor}`,
                                         width: `${iconSizeLevel2}px`,
                                         height: `${iconSizeLevel2}px`,
                                     }}
@@ -175,7 +228,7 @@ export const PaintBoard = ({
                                         marginTop: "72px", // 好奇怪的BUG
                                         background: `url(${ColorPickerSVG}) no-repeat`,
                                         backgroundSize: 'contain',
-                                        backgroundColor: `${selectedTool === 2 ? activeColor : unactiveColor}`,
+                                        backgroundColor: `${mode === 2 ? activeColor : unactiveColor}`,
                                         width: `${iconSizeLevel2}px`,
                                         height: `${iconSizeLevel2}px`,
                                     }}
@@ -188,12 +241,14 @@ export const PaintBoard = ({
                                     style={{
                                         marginLeft: "-4px",
                                         marginTop: "108px",
-                                        backgroundColor: `${"#1a7f7f"}`,
+                                        backgroundColor: `${currentColor}`,
                                         width: `${iconSizeLevel2}px`,
                                         height: `${iconSizeLevel2}px`,
                                     }}
                                 />
                             </div>
+
+
                         </div>
                 </div>
         </div>
@@ -203,11 +258,18 @@ export const PaintBoard = ({
                     {imageTitles}
                 </div>
                 <div className="Painting-canvas-container">
-                    <div className="Painting-canvas">
+                    <div className="Painting-canvas" id="canvas">
                         {imagePainters}
                     </div>
                     <div className="Poem-panel">
-                        <MetaPanel iconSize={iconSizeLevel1}/>
+                        <MetaPanel iconSize={iconSizeLevel1}
+                        queryList={queryList}
+                        setQueryList={setQueryList}
+                        setVisibility={setVisibility}
+                        index={index}
+                        setIndex={setIndex}
+                        canvasTop={canvasTop}
+                        />
                     </div>
                 </div>
             </div>
@@ -224,32 +286,4 @@ export const PaintBoard = ({
     </div>
 }
 
-// const imageTitle = useMemo(() => {
-//     return restoredImages.map((name) => {
-//         return <div className="Image-title" key={`image-title-${name}`}>
-//             <div className="Tixing-div"/>
-//             <div className="Image-title-text">
-//                 <span>{name}</span>
-//             </div>
-//         </div>
-//     })
-// }, [restoredImages]);
 
-// 初始化canvas => TODO: 1) scale; 2) drawing
-// useEffect(() => {
-//     if(canvasSize[0] > 0) {
-//         const canvasWidth = canvasSize[0] - 24;
-//         const canvasHeight = canvasSize[1];
-//         const borderWidth = 10;
-//         const restoredImage = new Image();
-//         restoredImage.src = case2Query;
-//         restoredImage.onload = () => {
-//             const canvas = document.getElementById('painting-canvas');
-//             const canvasCont = canvas.getContext('2d');
-//             const imageWHRatio = restoredImage.width / restoredImage.height;
-//             // console.log("test-print", restoredImage.width, restoredImage.height);
-//             const displayHeight = canvasHeight - 2 * borderWidth;
-//             canvasCont.drawImage(restoredImage, borderWidth, borderWidth, displayHeight * imageWHRatio, displayHeight);
-//         }
-//     }
-// }, [canvasSize])

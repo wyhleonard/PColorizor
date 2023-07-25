@@ -1,0 +1,26 @@
+.Button-Container {
+    flex-direction: column;
+    width: 35px;
+    height: 180px;
+    position: absolute;
+    z-index: 100;
+    justify-content: center;
+}
+
+.Select-Button {
+    width: 45px;
+    height: 45px;
+    background-color: #fff6dc;
+    border: 2px solid #594d3a;
+    border-radius: 8px;
+    box-sizing: border-box;
+    position: relative;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.Image {
+    width: 30px;
+    height: 30px;
+}

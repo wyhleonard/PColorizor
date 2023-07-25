@@ -119,16 +119,138 @@ const case2MingScatters = [
     // ]
 ];
 
+//hardcode
+const metaInfo = [
+    {dynasty: '魏晋南北朝',author: '顾恺之',name: '洛神赋图'},
+    {dynasty: '隋朝',author: '展子虔',name: '游春图'},
+    {dynasty: '唐朝',author: '李思训',name: '江帆楼阁图'},
+    {dynasty: '唐朝',author: '李思训',name: '九成避暑图'},
+    {dynasty: '唐朝',author: '李思训',name: '京畿瑞雪图'},
+    {dynasty: '唐朝',author: '李昭道',name: '春山行旅图'},
+    {dynasty: '唐朝',author: '李昭道',name: 'Ming皇幸蜀图'},
+    {dynasty: '唐朝',author: '王维',name: '雪溪图'},
+    {dynasty: '唐朝',author: '王维',name: '辋川图'},
+    {dynasty: '唐朝',author: '孙位',name: '高逸图'},
+    {dynasty: '唐朝',author: '佚名',name: '宫苑图'},
+    {dynasty: '唐朝',author: '王维',name: '长江积雪图'},
+    {dynasty: '唐朝',author: '卢鸿',name: '草堂十志图（一）'},
+    {dynasty: '唐朝',author: '卢鸿',name: '草堂十志图（二）'},
+    {dynasty: '唐朝',author: '卢鸿',name: '草堂十志图（三）'},
+    {dynasty: '唐朝',author: '卢鸿',name: '草堂十志图（四）'},
+    {dynasty: '唐朝',author: '佚名',name: '春郊游骑图'},
+    {dynasty: '五代',author: '董源',name: '溪岸图'},
+    {dynasty: '五代',author: '董源',name: '夏景山口待渡图'},
+    {dynasty: '五代',author: '董源',name: '夏山图'},
+    {dynasty: '五代',author: '董源',name: '潇湘图'},
+    {dynasty: '五代',author: '董源',name: '平林霁色图卷'},
+    {dynasty: '五代',author: '荆浩',name: '匡庐图'},
+    {dynasty: '五代',author: '荆浩',name: '雪景山水图'},
+    {dynasty: '五代',author: '关仝',name: '关山行旅图'},
+    {dynasty: '五代',author: '关仝',name: '秋山晚翠图'},
+    {dynasty: '五代',author: '巨然',name: '万壑松风图'},
+    {dynasty: '五代',author: '巨然',name: '秋山问道图'},
+    {dynasty: '五代',author: '巨然',name: '萧翼赚兰亭图'},
+    {dynasty: '五代',author: '董源',name: '龙郊宿民图'},
+    {dynasty: '五代',author: '卫贤',name: '高士图'},
+    {dynasty: '五代',author: '佚名',name: '丹枫呦鹿图'},
+    {dynasty: '五代',author: '佚名',name: '秋林群鹿图'},
+    {dynasty: '五代',author: '赵嵒',name: '八达春游图'},
+    {dynasty: '宋朝',author: '王希孟',name: '千里江山图'},
+    {dynasty: '宋朝',author: '燕文贵',name: '溪山楼观图'},
+    {dynasty: '宋朝',author: '燕文贵',name: '江山楼观图'},
+    {dynasty: '宋朝',author: '许道宁',name: '关山密雪图'},
+    {dynasty: '宋朝',author: '许道宁',name: '渔父图'},
+    {dynasty: '宋朝',author: '郭熙',name: '早春图'},
+    {dynasty: '宋朝',author: '李成',name: '晴峦萧寺图'},
+    {dynasty: '宋朝',author: '佚名',name: '朱云折榄图'},
+    {dynasty: '宋朝',author: '佚名',name: '荷亭婴戏图'},
+    {dynasty: '宋朝',author: '马远',name: '雕台望云图'},
+    {dynasty: '宋朝',author: '佚名',name: '仙山楼阁图'},
+    {dynasty: '宋朝',author: '赵大亨',name: '薇省黄昏图'},
+    {dynasty: '宋朝',author: '赵伯驹',name: '江山秋色图'},
+    {dynasty: '宋朝',author: '赵伯啸',name: '万松金阙图'},
+    {dynasty: '宋朝',author: '赵伯驹',name: '汉宫春晓图'},
+    {dynasty: '宋朝',author: '赵伯驹',name: '春山云隐图'},
+    {dynasty: '宋朝',author: '赵伯驹',name: '莲舟新月图'},
+    {dynasty: '宋朝',author: '赵士雷',name: '湘乡小景图'},
+    {dynasty: '元',author: '赵雍',name: '江堤晚景图'},
+    {dynasty: '元',author: '赵孟頫',name: '洞庭东山图'},
+    {dynasty: '元',author: '赵孟頫',name: '茅亭松籁图'},
+    {dynasty: '元',author: '赵孟頫',name: '重江叠嶂图'},
+    {dynasty: '元',author: '赵孟頫',name: '春山闲眺图'},
+    {dynasty: '元',author: '赵孟頫',name: '水村图'},
+    {dynasty: '元',author: '赵孟頫',name: '秋山仙奕图'},
+    {dynasty: '元',author: '赵孟頫',name: '江村渔乐图'},
+    {dynasty: '元',author: '黄公望',name: '九珠峰翠图'},
+    {dynasty: '元',author: '黄公望',name: '富春山居图'},
+    {dynasty: '元',author: '王蒙',name: '溪山风雨图'},
+    {dynasty: '元',author: '王蒙',name: '葛稚川移居图'},
+    {dynasty: '元',author: '王蒙',name: '花溪渔隐图之三'},
+    {dynasty: '元',author: '王蒙',name: '太白山图'},
+    {dynasty: '元',author: '王蒙',name: '长江万里图'},
+    {dynasty: '元',author: '倪瓒',name: '倪瓒王蒙合作山水图'},
+    {dynasty: '元',author: '倪瓒',name: '水竹居图'},
+    {dynasty: '元',author: '吴镇',name: '洞庭渔隐图'},
+    {dynasty: '元',author: '吴镇',name: '山窗听雨图'},
+    {dynasty: '元',author: '吴镇',name: '清江春晓图'},
+    {dynasty: '元',author: '吴镇',name: '秋江渔隐图'},
+    {dynasty: '元',author: '商琦',name: '春山图'},
+    {dynasty: '元',author: '钱选',name: '浮玉山居图'},
+    {dynasty: '元',author: '钱选',name: '山居图'},
+    {dynasty: '元',author: '钱选',name: '秋江待渡图'},
+    {dynasty: 'Ming',author: '唐寅',name: '秋山高士图'},
+    {dynasty: 'Ming',author: '唐寅',name: '事茗图'},
+    {dynasty: 'Ming',author: '文徵Ming',name: '曲港归舟图'},
+    {dynasty: 'Ming',author: 'Zhou Shen',name: '京江送别图'},
+    {dynasty: 'Ming',author: 'Zhou Shen',name: '柳荫坐钓图'},
+    {dynasty: 'Ming',author: 'Zhou Shen',name: '仿黄公望富春山居图'},
+    {dynasty: 'Ming',author: '董其昌',name: '林和靖诗意图'},
+    {dynasty: 'Ming',author: 'Zhou Shen',name: '落花诗意图'},
+    {dynasty: 'Ming',author: 'Duan Zhu',name: '烟江远眺图'},
+    {dynasty: 'Ming',author: 'Duan Zhu',name: '松院闲吟图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '桃村草堂图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '玉洞仙源图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '莲溪渔隐图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '归汾图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '春山吟赏图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '上林赋图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '桃源仙境图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '浔阳送别图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '枫溪垂钓图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '桃花源图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '秋江待渡图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '清Ming上河图'},
+    {dynasty: 'Ming',author: 'Chen Zhou',name: '辟纑图'},
+    {dynasty: 'Ming',author: 'Chen Zhou',name: '春山游骑图'},
+    {dynasty: 'Ming',author: 'Chen Zhou',name: '春泉小隐图'},
+    {dynasty: 'Ming',author: 'Chen Zhou',name: '松窗对奕图'},
+    {dynasty: 'Ming',author: 'Chen Zhou',name: '水亭清兴图'},
+    {dynasty: 'Ming',author: 'Chen Zhou',name: '北溟图'},
+    {dynasty: 'Ming',author: 'Chen Zhou',name: '春泉小隐图'},
+    {dynasty: 'Ming',author: 'Ying Qiu',name: '玉洞仙源图'},
+    {dynasty: 'Ming',author: '董其昌',name: '关山雪霁图'},
+    {dynasty: 'Ming',author: '董其昌',name: '昼锦堂图'}
+];
+
+const getMetaInfo = (datas) => {
+    // metaInfo = datas;
+    //interface， change hardcode to data.
+}
+
 const hardCodeColorBins = [5411, 6611, 6211, 5791, 5391, 5790, 5390, 4990, 5811, 6190, 5810, 5410, 6191, 5010, 4590, 6591, 5389, 5789, 7010, 7410, 6610, 6990, 6210, 5770, 5769];
 
 export const TimelineView = ({
     // colorBinData,
+    visibility,
+    drawingDisplay,
+    setDrawingDisplay
 }) => {
     const colorBinData = color_bins.color_bins;
     const colorPalette = color_palette.color_palette;
     const clipScoreData = backendData.clip_scores;
     const clipScoreOverview = clipScoreData.ideorealm;
     const clipScoreDetail = clipScoreData.imageries;
+    // console.log(colorPalette);
     // console.log("test-print-clipScoreDetail", clipScoreDetail);
 
     // 统计总体颜色分布
@@ -160,6 +282,7 @@ export const TimelineView = ({
 
         const normalizedDatawithn1 = colorBinOverviewData.sort((a, b) => b[1] - a[1]);
         const normalizedData = [];
+        console.log(colorBinOverviewData);
         normalizedDatawithn1.forEach((v) => {
             // bug: v[0]会等于-1
             if(v[0] === -1) return null
@@ -237,10 +360,12 @@ export const TimelineView = ({
     // console.log("test-print-svgContWH", svgContWH);
 
     // color distribution
-    const [hiddenBars, setHiddenBars] = useState([0, 1, 2, 4, 6, 8, 9, 10, 11, 13, 14, 15]);  // 当前显示：3,5,7,12
+    // const [hiddenBars, setHiddenBars] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+    const [hiddenBars, setHiddenBars] = useState([]);
     const [hiddenDetailBars, setHiddenDetailBars] = useState([]);
+    const [lastKey, setLastKey] = useState('');
 
-    console.log("hardcode-data", hiddenDetailBars) // 6190, 5769, 4990, 5389 => 
+    // console.log("hardcode-data", hiddenDetailBars) // 6190, 5769, 4990, 5389 => 
 
     const {colorOverviewBars, clusterMember, clusterNum} = useMemo(() => {
         if(svgContWH[0] > 0) {
@@ -309,11 +434,37 @@ export const TimelineView = ({
                                     cursor: "pointer",
                                     borderRadius: "0px 0px 2px 2px"
                                 }}
-                                onClick={() => {
-                                    if(detailIndex === -1) {
-                                        hiddenDetailBars.push(v[0])
+                                onMouseDown={(e) => {
+                                    if(e.button === 2) {        //右键点击
+                                        if(lastKey === 'left') {    //状态切换
+                                            hiddenDetailBars.length = 0;
+                                        }
+                                        if(hiddenDetailBars.length === 0) {
+                                            //如果全部被选中，或者初始状态，那么回归到只显示v【0】的状态
+                                            for (let i = 0; i < binData.length; i++) {
+                                                const element = binData[i][0];
+                                                if(element !== v[0]) {
+                                                    hiddenDetailBars.push(element);
+                                                }
+                                            }
+                                        }
+                                        else if(detailIndex !== -1) {   //显示v【0】
+                                            hiddenDetailBars.splice(detailIndex, 1);
+                                        } else {
+                                            hiddenDetailBars.push(v[0]);//隐藏v【0】
+                                        }
+                                        setLastKey('right');
                                     } else {
-                                        hiddenDetailBars.splice(detailIndex, 1)
+                                        if(lastKey === 'right') {       //状态切换
+                                            hiddenDetailBars.length = 0;
+                                            hiddenDetailBars.push(v[0]);
+                                        }
+                                        else if(detailIndex === -1) {   //隐藏v【0】
+                                            hiddenDetailBars.push(v[0]);
+                                        } else {                        //显示v【0】
+                                            hiddenDetailBars.splice(detailIndex, 1);
+                                        }
+                                        setLastKey('left');
                                     }
                                     setHiddenDetailBars(JSON.parse(JSON.stringify(hiddenDetailBars)))
                                 }}
@@ -391,6 +542,8 @@ export const TimelineView = ({
             dynastyInterval.forEach(_ => scoreArr.push([]));
             clipScoreOverview.forEach((v, idx) => scoreArr[dynastyLabel[idx]].push(v));
             // console.log("test-print-scoreArr", scoreArr);
+            // console.log(clipScoreOverview);
+            // console.log('arr', scoreArr);
 
             // max决定整体高度 => 变成数量            
             const scoreMaxArr = [];
@@ -409,6 +562,8 @@ export const TimelineView = ({
             const heightArr = [];
             dynastyInterval.forEach(_ => heightArr.push(0));
             const binIndexArr = colorBinOverviewData.map((v) => v[0]);
+            console.log('binindex', binIndexArr);
+            console.log('coloebin', colorBinData);
 
             const currentImages = [];
             for(let idx = 0; idx < colorBinData.length; idx++) {
@@ -466,94 +621,6 @@ export const TimelineView = ({
                 // quartileScore.push([1, 0])
             })
             // console.log("test-print-quartileScore", quartileScore);
-
-            // {
-            // // // 来啦 请叫我hardcode之神 => 为每个子bin画一条area
-            // // const targetBins = [6190]; // [6190, 5769, 4990, 5389]
-            // // const areaDynasty = []
-            // // dynastyInterval.forEach(_ => areaDynasty.push([]));
-            // // for(let i = 0; i < targetBins.length; i++) {
-            // //     for(let k = 0; k < areaDynasty.length; k++) {
-            // //             areaDynasty[k].push(0);
-            // //             const currentDynastyColors = []
-            // //             for(let m = 0; m < colorBinData.length; m++) {
-            // //                 if(dynastyLabel[m] === k) {
-            // //                     currentDynastyColors.push(colorBinData[m].overview);
-            // //                 }
-            // //             }
-
-            // //             for(let m = 0; m < currentDynastyColors.length; m++) {
-            // //                 const normalizedColors = listNormalization(currentDynastyColors[m]);
-            // //                 for(let n = 0; n < normalizedColors.length; n++) {
-            // //                     const colorBinIndex = normalizedColors[n][0];
-
-            // //                     if(colorBinIndex === targetBins[i]) {
-            // //                         areaDynasty[k][i] += normalizedColors[n][1];
-            // //                     }
-            // //                 }
-            // //             }
-            // //     }
-            // // }
-
-            // // for(let i = 0; i < areaDynasty.length; i++) {
-            // //     if(areaDynasty[i].length === 1 && areaDynasty[i][0] === 0) areaDynasty[i] = [0]
-            // //     else areaDynasty[i] = arrNormalization(areaDynasty[i]);
-            // // }
-
-            // // const areaGraphs = [];
-            // // const areaGraphHeights = [];
-            // // const width = svgContWH[0];
-            // // const baseHeight = 1; // 无数据的Area的基础宽度
-            // // const height = svgContWH[1];
-            // // let xPos = 0;
-            // // const dynastyX = normalizedWidth.map(v => {
-            // //     const x = xPos + 0.5 * v * width;
-            // //     xPos += v * width;
-            // //     return x
-            // // });
-            // // normalizedWidth.forEach(_ => areaGraphHeights.push(height));
-
-            // // // mountain metaphor
-            // // for(let k = 0; k < targetBins.length; k++) {
-            // //     const areas = []
-            // //     for(let i = 0; i < areaDynasty.length; i++) {
-            // //         if(selectedDynasty.indexOf(i) !== -1) continue
-
-            // //         const intervalWidth = normalizedWidth[i] * width * 0.5;
-            // //         const xStart = dynastyX[i] - intervalWidth;
-            // //         const xEnd = xStart + intervalWidth * 2;
-                    
-            // //         const height2 = height - k * baseHeight;
-            // //         let path = `M ${xStart} ${height2}`;
-            // //         const yGap = normalziedHeightScale[i] * areaDynasty[i][k] * height;
-            // //         const y = areaGraphHeights[i] - yGap;
-
-            // //         // good
-            // //         const height1 = height - (k + 1) * baseHeight;
-            // //         path += `L ${xStart} ${height1}`;
-            // //         path += `C ${xStart + (1 - quartileScore[i][0]) * intervalWidth} ${height1}, ${dynastyX[i] - quartileScore[i][1] * intervalWidth} ${y}, ${dynastyX[i]} ${y}`;
-            // //         path += `C ${dynastyX[i] + quartileScore[i][1] * intervalWidth} ${y}, ${xEnd - (1 - quartileScore[i][0]) * intervalWidth} ${height1}, ${xEnd} ${height1}`;
-                    
-            // //         path += `L ${xEnd} ${height2}`;
-            // //         path += `C ${xEnd - (1 - quartileScore[i][0]) * intervalWidth} ${height2}, ${dynastyX[i] + quartileScore[i][1] * intervalWidth} ${areaGraphHeights[i]}, ${dynastyX[i]} ${areaGraphHeights[i]}`;
-            // //         path += `C ${dynastyX[i] - quartileScore[i][1] * intervalWidth} ${areaGraphHeights[i]}, ${xStart + (1 - quartileScore[i][0]) * intervalWidth} ${height2}, ${xStart} ${height2} Z`;
-
-            // //         areaGraphHeights[i] -= yGap;
-
-            // //         const areaColor = colorPalette[targetBins[k]];
-            // //         console.log("test-print-areaColor", areaColor)
-            // //         areas.push(<path d={path} fill={`rgb(${areaColor[0]},${areaColor[1]},${areaColor[2]})`} key={`path-${i}-${k}`} />)
-            // //     }
-            // //     areaGraphs.push(
-            // //         <g key={`area-${k}`} style={{cursor: "pointer"}}>
-            // //             {areas}
-            // //         </g>
-            // //     )
-            // // }
-
-            // // return areaGraphs
-            // }
-
 
             if(selectedArea === -1) {
                 // area ratio - 每个朝代单独统计
@@ -899,6 +966,9 @@ export const TimelineView = ({
 
     // dynastyButton
     const dynastyButtons = useMemo(() => {
+        if(metaInfo.length === 0) {
+            // getMetaInfo('../data/metainfo.txt');
+        }
         const normalizedWidth = arrNormalization(dynastyInterval);
         return normalizedWidth.map((v, idx) => {
             const backColor = selectedDynasty.length === 0 ? "#b5996f" : (selectedDynasty.indexOf(idx) !== -1 ? "#b5996f" : "rgba(181,153,111,0.5)")
@@ -926,7 +996,7 @@ export const TimelineView = ({
                                     else selectedDynasty(idx)
                                 }}
                             >
-                                <span>{dynastyNames[idx]}</span>
+                                <span className="Dynasties">{dynastyNames[idx]}</span>
                             </div>
                         :
                             <div
@@ -947,18 +1017,77 @@ export const TimelineView = ({
                                     setSelectedDynasty(JSON.parse(JSON.stringify(selectedDynasty)))
                                 }}
                             >
-                                <span>{dynastyNames[idx]}</span>
+                                <span className="Dynasties">{dynastyNames[idx]}</span>
                             </div>
                     }
             </div>
         })
     }, [svgContWH, selectedDynasty])
 
+    //对于scatterPlot鼠标悬停事件的数据记录，并切换对应的图片。
+    const [imgSrc, setImgSrc] = useState('');
+    const [dynasty, setDynasty] = useState('');
+    const [author, setAuthor] = useState('');
+    const [name, setName] = useState('');
+
+    const [display, setDisplay] = useState('none');
+    const [top, setTop] = useState(0);
+    const [left, setLeft] = useState(0);
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
+
+    const hoveredImage = <div className="Hovered-Image" 
+            style={{
+                display: display,
+                top: `${top}px`,
+                left: `${left}px`,
+                width: `${width + 10}px`,
+            }}>
+            <img src={imgSrc} alt=""
+            className="Image"
+            style={{
+                width: `${width}px`,
+                height: `${height}px`,
+            }}></img>
+            <span>{dynasty}-{author}</span>
+        </div>;
+
+    const showPaintings = (e, index) => {
+        const data = metaInfo[index];
+
+        let paintingSrc = require('../images/case2/ming/' + (index+1) + '.jpg');
+        setImgSrc(paintingSrc);
+        setDynasty(data.dynasty);
+        setAuthor(data.author);
+        setName(data.name);
+
+        setDisplay('flex');
+        setTop(e.clientY);
+        setLeft(e.clientX);
+        
+        //adjust width and height
+        const image = new Image();
+        image.src = paintingSrc;
+        if(image.width > image.height) {
+            setWidth(150);
+            setHeight(75);
+        } else {
+            setWidth(100);
+            setHeight(150);
+        }
+    }
+
+    const vanishPaintings = () => {
+        setDisplay('none');
+    }
+
+    const [hidden, setHidden] = useState(0);
+
     const scatterplot = useMemo(() => {
         const scatterPlot = [];
         const plotBorder = 6;
         const paintingIndex = [[77, 109]] // ming
-        if(selectedDynasty.length > 0 && svgContWH[0] > 0) {
+        if(selectedDynasty.length > 0 && svgContWH[0] > 0 && hidden === 0) {
             const normalizedWidth = arrNormalization(dynastyInterval);
             for(let i = 0; i < selectedDynasty.length; i++) {
                 let startX = 0;
@@ -981,11 +1110,30 @@ export const TimelineView = ({
                 const querynum = 3;
                 const opacityScale = 30;
                 const singleRectHeight = rectSize / querynum; // 三个查询
+
+                const changeColor = (idx) => {
+                    // if(idx === 3) {
+                        setHiddenBars([0, 1, 2, 4, 6, 8, 9, 10, 11, 13,14,15]);
+                        setHidden(1);
+                        setSelectedDynasty([]);
+                    // }
+                };
+                //TODO: hardcode, just display 0,
                 const scatters = case2MingScatters[i].map((pos, idx) => { // 变成三个rect好了
                     const rStartX = subRectStartX + pos[0] * subRectWidth - rectSize / 2;
                     const rStartY = subRectStartY + pos[1] * subRectHeight - rectSize / 2 - ((querynum - 1) / 2) * rectPadding;
-
-                    return <g key={`rect-group-${selectedDynasty[i]}-${idx}`} onClick={() => console.log("print-click-painting", paintingIndex[i][0] + idx + 1)} style={{cursor: "pointer"}}>
+                    console.log(idx);
+                    return <g key={`rect-group-${selectedDynasty[i]}-${idx}`} 
+                        onMouseOver={(e) => showPaintings(e, paintingIndex[i][0] + idx)}
+                        onMouseMove={(e) => showPaintings(e, paintingIndex[i][0] + idx)}
+                        onMouseOut={() => vanishPaintings()}
+                        onClick={(e) => {if(e.button === 0){
+                            setDrawingDisplay('block');
+                            // changeColor(idx); 
+                            setDisplay('none');
+                        }}}
+                        style={{cursor: "pointer"}}
+                        >
                         <rect x={rStartX} y={rStartY} width={rectSize} height={singleRectHeight} fill={`rgba(181,153,111,${(clipScoreDetail[0][paintingIndex[i][0] + idx] * opacityScale) * 0.8 + 0.2})`} stroke={"none"} rx={1} ry={1}/>
                         <rect x={rStartX} y={rStartY + singleRectHeight + rectPadding} width={rectSize} height={singleRectHeight} fill={`rgba(181,153,111,${(clipScoreDetail[1][paintingIndex[i][0] + idx] * opacityScale) * 0.8 + 0.2})`} stroke={"none"} rx={1} ry={1}/>
                         <rect x={rStartX} y={rStartY + (singleRectHeight + rectPadding) * 2} width={rectSize} height={singleRectHeight} fill={`rgba(181,153,111,${(clipScoreDetail[2][paintingIndex[i][0] + idx] * opacityScale) * 0.8 + 0.2})`} stroke={"none"} rx={1} ry={1}/>
@@ -1011,11 +1159,12 @@ export const TimelineView = ({
             }
         }
         return scatterPlot
-    }, [svgContWH, selectedDynasty, clipScoreDetail])
+    }, [svgContWH, selectedDynasty, clipScoreDetail, hidden])
 
     // console.log("test-print-scatterplot", scatterplot.length)
 
     return <div className="Timeline">
+        {hoveredImage}
         <div className="Visualization-container">
             <div className="Color-evolution" >
                 <div ref={svgContRef} style={{width: "100%", height: "calc(100% - 26px)"}}>
@@ -1036,7 +1185,7 @@ export const TimelineView = ({
 
             </div>
             <div className="Color-distribution">
-                <div className="Distribution-overview">
+                <div className="Distribution-overview" style={{visibility: `${visibility}`}}>
                     {colorOverviewBars}
                 </div>
             </div>
